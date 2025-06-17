@@ -1,0 +1,6 @@
+[
+  { "id": "main_course", "name": "Main Course" },
+  { "id": "dessert", "name": "Dessert" },
+  { "id": "appetizer", "name": "Appetizer" },
+  { "id": "beverage", "name": "Beverage" }
+]
