@@ -13,10 +13,10 @@ class AddEditRecipeScreen extends StatefulWidget {
   const AddEditRecipeScreen({super.key, this.recipe});
 
   @override
-  _AddEditRecipeScreenState createState() => _AddEditRecipeScreenState();
+  AddEditRecipeScreenState createState() => AddEditRecipeScreenState();
 }
 
-class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
+class AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
   late TextEditingController _ingredientsController;

@@ -8,7 +8,7 @@ part of 'recipe.dart';
 
 class RecipeAdapter extends TypeAdapter<Recipe> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   Recipe read(BinaryReader reader) {
@@ -23,13 +23,13 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       recipeTypeId: fields[3] as String,
       ingredients: (fields[4] as List).cast<String>(),
       steps: (fields[5] as List).cast<String>(),
-    );
+    )..lastModified = fields[6] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, Recipe obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +41,9 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       ..writeByte(4)
       ..write(obj.ingredients)
       ..writeByte(5)
-      ..write(obj.steps);
+      ..write(obj.steps)
+      ..writeByte(6)
+      ..write(obj.lastModified);
   }
 
   @override

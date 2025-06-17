@@ -28,8 +28,14 @@ class RecipeService {
   //   return _recipeBox.watch().map((event) => _recipeBox.values.toList());
   // }
   Stream<List<Recipe>> getRecipesStream() async* {
-    yield _recipeBox.values.toList(); // Emit initial values
-    yield* _recipeBox.watch().map((event) => _recipeBox.values.toList());
+    yield _recipeBox.values.toList()..sort(
+      (a, b) => b.lastModified.compareTo(a.lastModified),
+    ); // Emit initial values sorted
+    yield* _recipeBox.watch().map(
+      (event) =>
+          _recipeBox.values.toList()
+            ..sort((a, b) => b.lastModified.compareTo(a.lastModified)),
+    );
   }
 
   // --- Initial Data Loading ---
@@ -92,11 +98,21 @@ class RecipeService {
 
   // --- CRUD Operations ---
   Future<void> addRecipe(Recipe recipe) async {
+    recipe.lastModified = DateTime.now();
     await _recipeBox.put(recipe.id, recipe);
   }
 
   Future<void> updateRecipe(Recipe recipe) async {
-    await recipe.save(); // HiveObjects can be saved directly
+    final existingRecipe = _recipeBox.get(recipe.id);
+    if (existingRecipe != null) {
+      existingRecipe.name = recipe.name;
+      existingRecipe.imagePath = recipe.imagePath;
+      existingRecipe.recipeTypeId = recipe.recipeTypeId;
+      existingRecipe.ingredients = recipe.ingredients;
+      existingRecipe.steps = recipe.steps;
+      existingRecipe.lastModified = DateTime.now();
+      await existingRecipe.save();
+    }
   }
 
   Future<void> deleteRecipe(String id) async {

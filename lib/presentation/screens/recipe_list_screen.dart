@@ -38,10 +38,13 @@ class RecipeListScreen extends StatelessWidget {
                 }
 
                 final recipes = snapshot.data ?? [];
-                final filteredRecipes = recipes.where((recipe) {
-                  final filter = recipeProvider.selectedFilter;
-                  return filter == null || recipe.recipeTypeId == filter.id;
-                }).toList();
+                final filteredRecipes =
+                    recipes.where((recipe) {
+                      final filter = recipeProvider.selectedFilter;
+                      return filter == null || recipe.recipeTypeId == filter.id;
+                    }).toList()..sort(
+                      (a, b) => b.lastModified.compareTo(a.lastModified),
+                    );
 
                 if (filteredRecipes.isEmpty) {
                   return const Center(

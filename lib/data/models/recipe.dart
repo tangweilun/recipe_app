@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'recipe.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class Recipe extends HiveObject {
   @HiveField(0)
   late String id;
@@ -22,6 +22,9 @@ class Recipe extends HiveObject {
   @HiveField(5)
   late List<String> steps;
 
+  @HiveField(6)
+  late DateTime lastModified;
+
   Recipe({
     required this.id,
     required this.name,
@@ -29,5 +32,7 @@ class Recipe extends HiveObject {
     required this.recipeTypeId,
     required this.ingredients,
     required this.steps,
-  });
+  }) {
+    lastModified = DateTime.now();
+  }
 }
