@@ -96,13 +96,3 @@ fvm flutter run
 ```bash
 flutter test
 ```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Flutter team for the amazing framework
-- Hive for the efficient local storage solution
-- Provider package for state management
